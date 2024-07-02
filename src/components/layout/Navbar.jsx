@@ -45,6 +45,9 @@ export function Navbar_app({ user_name, titulo }) {
     sidenavType,
     panelSuperioColor,
     borders,
+    contorno_borders,
+    border_color,
+    tamano_border,
   } = controller;
   const cookies = new Cookies();
   const [image, setimage] = useState("");
@@ -63,11 +66,21 @@ export function Navbar_app({ user_name, titulo }) {
   return (
     <Navbar
       color={!fixedNavbar && "transparent"}
-      className={` transition-all ${
-        fixedNavbar
-          ? `sticky top-4 z-40 py-3 shadow-md shadow-blue-gray-500/5 ${colores_fondo[panelSuperioColor]}`
-          : "px-0 py-1"
-      } ${borders ? "rounded-xl" : "rounded-none"}`}
+      className={` transition-all 
+        ${contorno_borders ? "border-2" : "border-none"}
+        ${
+          fixedNavbar
+            ? `sticky top-4 z-40 py-3 shadow-md shadow-blue-gray-500/5 ${
+                colores_fondo[panelSuperioColor]
+              } ${
+                contorno_borders
+                  ? `${tamano_border} ${border_color}`
+                  : "border-none"
+              }`
+            : "px-0 py-1"
+        } ${borders ? "rounded-xl" : "rounded-none"} 
+                
+`}
       fullWidth
       blurred={fixedNavbar}
     >

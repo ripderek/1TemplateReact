@@ -5,6 +5,9 @@ import {
   Switch,
   Typography,
   Chip,
+  Slider,
+  Stepper,
+  Step,
 } from "@material-tailwind/react";
 import {
   useMaterialTailwindController,
@@ -17,6 +20,11 @@ import {
   setBorders,
   setShadows,
   setIconAPP,
+  setContornBorders,
+  setColorBorder,
+  setTamanoBorde,
+  setTamanoSombra,
+  setTColorsombra,
 } from "@/context";
 import { useState, useEffect } from "react";
 //import {sidenavColors} from "../../Data/sidenavColors"
@@ -32,9 +40,12 @@ export function Configurator() {
     borders,
     shadows,
     iconApp,
+    contorno_borders,
+    border_color,
+    tamano_border,
+    tamano_sombras,
+    color_sombras,
   } = controller;
-  const [stars, setStars] = useState(0);
-
   const sidenavColors = {
     white: "from-gray-100 to-gray-100 border-gray-200",
     dark: "from-black to-black border-gray-200",
@@ -53,13 +64,45 @@ export function Configurator() {
     pink: "bg-pink-400 ",
     purple: "bg-purple-500 ",
   };
+  const colores_bordes = {
+    dark: "border-black",
+    white: "border-white",
+    green: "border-green-700",
+    orange: "border-orange-700 ",
+    red: "border-red-700  ",
+    pink: "border-pink-700 ",
+    purple: "border-purple-700  ",
+  };
+  //tipos de sombras
+  const sombras = {
+    1: "shadow-sm",
+    2: "shadow-md",
+    3: "shadow-lg",
+    4: "shadow-xl",
+    5: "shadow-2xl",
+  };
+  const colores_sombras = {
+    dark: "shadow-black",
+    white: "shadow-white",
+    green: "shadow-green-700",
+    orange: "shadow-orange-700 ",
+    red: "shadow-red-700  ",
+    pink: "shadow-pink-700 ",
+    purple: "shadow-purple-700  ",
+  };
+  const [value, setValue] = useState(1);
+  const handleChange = (event) => {
+    setValue(event.target.value);
+    const indice = event.target.value;
+    setTamanoSombra(dispatch, sombras[indice]);
+  };
   return (
     <aside
       className={`fixed top-0 right-0 z-50 h-screen w-96 overflow-y-scroll bg-white px-2.5 shadow-lg transition-transform duration-300 ${
-        openConfigurator ? "translate-x-0" : "translate-x-96 "
+        openConfigurator ? "translate-x-0 " : "translate-x-96"
       }`}
     >
-      <div className="flex items-start justify-between px-6 pt-8 pb-6 ">
+      <div className="flex  items-start justify-between px-6 pt-8 pb-6 ">
         <div>
           <Typography variant="h5" color="blue-gray">
             Configuracion de interfaz
@@ -134,6 +177,48 @@ export function Configurator() {
           </div>
         </div>
         <div className="mb-2">
+          <Typography variant="h6" color="blue-gray">
+            Color de los borders
+          </Typography>
+          <div className="mt-3 flex items-center gap-2">
+            {Object.keys(colores_fondo).map((color) => (
+              <span
+                key={color}
+                className={`h-6 w-6 cursor-pointer rounded-full border bg-gradient-to-br transition-transform hover:scale-105 ${
+                  colores_fondo[color]
+                } ${
+                  border_color === colores_bordes[color]
+                    ? "border-black"
+                    : "border-transparent"
+                }`}
+                onClick={() => setColorBorder(dispatch, colores_bordes[color])}
+              />
+            ))}
+          </div>
+        </div>
+        <div className="mb-2">
+          <Typography variant="h6" color="blue-gray">
+            Color de las sombras
+          </Typography>
+          <div className="mt-3 flex items-center gap-2">
+            {Object.keys(colores_fondo).map((color) => (
+              <span
+                key={color}
+                className={`h-6 w-6 cursor-pointer rounded-full border bg-gradient-to-br transition-transform hover:scale-105 ${
+                  colores_fondo[color]
+                } ${
+                  color_sombras === colores_sombras[color]
+                    ? "border-black"
+                    : "border-transparent"
+                }`}
+                onClick={() =>
+                  setTColorsombra(dispatch, colores_sombras[color])
+                }
+              />
+            ))}
+          </div>
+        </div>
+        <div className="mb-2">
           <hr />
           <div className="flex items-center justify-between py-5">
             <Typography variant="h6" color="blue-gray">
@@ -146,15 +231,6 @@ export function Configurator() {
             />
           </div>
           <hr />
-          {/* 
-          <div className="my-8 flex flex-col gap-4">
-            <a target="_black">
-              <Button variant="gradient" fullWidth>
-                Boton
-              </Button>
-            </a>
-          </div>
-*/}
         </div>
         <div className="mb-2">
           <hr />
@@ -192,12 +268,91 @@ export function Configurator() {
             </Typography>
             <Switch
               id="icon-layout"
-              value={!iconApp}
+              value={iconApp}
               onChange={() => setIconAPP(dispatch, !iconApp)}
             />
           </div>
           <hr />
         </div>
+        <div className="mb-2">
+          <hr />
+          <div className="flex items-center justify-between py-5">
+            <Typography variant="h6" color="blue-gray">
+              Activar contornos
+            </Typography>
+            <Switch
+              id="contornos-layout"
+              value={contorno_borders}
+              onChange={() => setContornBorders(dispatch, !contorno_borders)}
+            />
+          </div>
+          <hr />
+        </div>
+        <div className="mb-2">
+          <hr />
+          <div className="flex items-center justify-between py-5">
+            <Typography variant="h6" color="blue-gray">
+              Tamano del contorno
+            </Typography>
+            <Stepper>
+              <Step
+                key={1}
+                onClick={() => setTamanoBorde(dispatch, "border-2")}
+                className={`cursor-pointer ${
+                  tamano_border === "border-2"
+                    ? "border-8 border-red-900"
+                    : "border-none"
+                }`}
+              >
+                2x
+              </Step>
+              <Step
+                key={2}
+                onClick={() => setTamanoBorde(dispatch, "border-4")}
+                className={`cursor-pointer ${
+                  tamano_border === "border-4"
+                    ? "border-8 border-red-900"
+                    : "border-none"
+                }`}
+              >
+                4x
+              </Step>
+              <Step
+                key={3}
+                onClick={() => setTamanoBorde(dispatch, "border-8")}
+                className={`cursor-pointer ${
+                  tamano_border === "border-8"
+                    ? "border-8 border-red-900"
+                    : "border-none"
+                }`}
+              >
+                8x
+              </Step>
+            </Stepper>
+          </div>
+          <hr />
+        </div>
+        {/* 
+        <div className="mb-2">
+          <hr />
+          <div className="flex items-center justify-between py-5">
+            <Typography variant="h6" color="blue-gray">
+              Tamano sombras
+            </Typography>
+            <div className="w-96">
+              <Slider
+                defaultValue={value}
+                //value={value}
+                min={1}
+                max={5}
+                step={1}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+          <hr />
+        </div>
+        */}
         <div className="text-center">
           {/*
           <Typography variant="h6" color="blue-gray">

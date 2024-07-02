@@ -34,6 +34,11 @@ export function BarraNavegacion({ routes, brandImg, brandName }) {
     borders,
     shadows,
     iconApp,
+    contorno_borders,
+    border_color,
+    tamano_border,
+    tamano_sombras,
+    color_sombras,
   } = controller;
   // Define la lógica para determinar si un enlace está activo
   const router = useRouter();
@@ -47,13 +52,14 @@ export function BarraNavegacion({ routes, brandImg, brandName }) {
       } 
       ${change_type_bar ? "w-24" : "w-52"}
       ${borders ? "rounded-2xl" : "rounded-none"}
-      ${shadows ? "shadow-2xl" : "shadow-none"}
+      ${shadows ? `${tamano_sombras} ${color_sombras}` : "shadow-none"}
+      ${contorno_borders ? `${tamano_border} ${border_color}` : "border-none"}
        fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)]  transition-transform duration-300 xl:translate-x-0 
-           shadow-purple-800 `}
+           `}
     >
       <div className={`relative `}>
         <Card
-          className={`w-auto shadow-none mb-0  ${colores_fondo[sidenavType]}`}
+          className={`w-auto shadow-none  mb-0  ${colores_fondo[sidenavType]}`}
         >
           <CardHeader
             floated={false}
@@ -117,7 +123,7 @@ export function BarraNavegacion({ routes, brandImg, brandName }) {
           />
         </IconButton>
       </div>
-      <div className="m-4 ">
+      <div className="m-2">
         {routes.map(({ layout, title, pages }, key) => (
           <ul key={key} className="mb-4 flex flex-col gap-1 ">
             {pages.map(({ icon, name, path }) => (

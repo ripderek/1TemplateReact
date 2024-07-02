@@ -48,6 +48,26 @@ export function reducer(state, action) {
     case "CHANGE_ICON_APP": {
       return { ...state, iconApp: action.value };
     }
+    //para el contorno de los bordess
+    case "CHANGE_CONTOR_BORDERS": {
+      return { ...state, contorno_borders: action.value };
+    }
+    //para el color de los borders
+    case "CHANGE_COLOR_BORDERS": {
+      return { ...state, border_color: action.value };
+    }
+    //para cambiar el tamano del borde
+    case "CHANGE_TAMANO_BORDE": {
+      return { ...state, tamano_border: action.value };
+    }
+    //tamano de las sombras
+    case "CHANGE_TAMANO_SOMBRA": {
+      return { ...state, tamano_sombras: action.value };
+    }
+    //color de las sombras
+    case "CHANGE_COLOR_SOMBRA": {
+      return { ...state, color_sombras: action.value };
+    }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }
@@ -68,6 +88,12 @@ export function MaterialTailwindControllerProvider({ children }) {
     borders: true,
     shadows: false,
     iconApp: true,
+    contorno_borders: false,
+    //para el color de los bordes
+    border_color: "black",
+    tamano_border: "border-2",
+    tamano_sombras: "shadow-xl",
+    color_sombras: "shadow-blue-gray-900",
   };
 
   const [controller, dispatch] = React.useReducer(reducer, initialState);
@@ -131,3 +157,18 @@ export const setShadows = (dispatch, value) =>
 //CHANGE_ICON_APP
 export const setIconAPP = (dispatch, value) =>
   dispatch({ type: "CHANGE_ICON_APP", value });
+//CHANGE_CONTOR_BORDERS
+export const setContornBorders = (dispatch, value) =>
+  dispatch({ type: "CHANGE_CONTOR_BORDERS", value });
+//CHANGE_COLOR_BORDERS
+export const setColorBorder = (dispatch, value) =>
+  dispatch({ type: "CHANGE_COLOR_BORDERS", value });
+//CHANGE_TAMANO_BORDE
+export const setTamanoBorde = (dispatch, value) =>
+  dispatch({ type: "CHANGE_TAMANO_BORDE", value });
+//CHANGE_TAMANO_SOMBRA
+export const setTamanoSombra = (dispatch, value) =>
+  dispatch({ type: "CHANGE_TAMANO_SOMBRA", value });
+//CHANGE_COLOR_SOMBRA
+export const setTColorsombra = (dispatch, value) =>
+  dispatch({ type: "CHANGE_COLOR_SOMBRA", value });
