@@ -1,4 +1,4 @@
-import { IconButton } from "@material-tailwind/react";
+import { IconButton, Button } from "@material-tailwind/react";
 import { Cog6ToothIcon } from "@heroicons/react/24/solid";
 import { Dialog_Error, Loader } from "@/widgets";
 import { BarraNavegacion, Navbar_app, Configurator } from "@/components/layout";
@@ -19,6 +19,26 @@ export default function Home() {
   const [controller, dispatch] = useMaterialTailwindController();
   const { sidenavType, sidenavColor, change_type_bar } = controller;
 
+  //Prueba de la funcion para crear un archivo JS
+  const createFile = async () => {
+    const response = await fetch("/api/ExampleCreateFile", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        fileName: "Opcion2",
+        //content: "Codigo del archivo",
+      }),
+    });
+
+    const result = await response.json();
+    if (response.ok) {
+      alert(result.message);
+    } else {
+      alert("Error: " + result.message);
+    }
+  };
   return (
     <div className=" min-h-screen bg-blue-gray-50/50">
       <BarraNavegacion
@@ -44,7 +64,12 @@ export default function Home() {
         >
           <Cog6ToothIcon className="h-5 w-5" />
         </IconButton>
-        <div>Paguina de inicio</div>
+        <div>
+          Ejemplo de crear el archivo JS{" "}
+          <Button variant="outlined" size="sm" onClick={createFile}>
+            Crear archivo js
+          </Button>
+        </div>
       </div>
     </div>
   );
