@@ -28,7 +28,10 @@ export default function Home() {
       },
       body: JSON.stringify({
         fileName: "Opcion2",
-        //content: "Codigo del archivo",
+        ruta_archivo: "/src/pages/dashboard",
+        ruta_plantilla: "/src/Data/Plantillas/Plantilla_1.js",
+        Titulo: "TituloPersonalizado",
+        Subtitulo: "SubtituloPersonalizado",
       }),
     });
 
