@@ -8,7 +8,9 @@ import {
   Slider,
   Stepper,
   Step,
+  Tooltip,
 } from "@material-tailwind/react";
+import { PencilIcon } from "@heroicons/react/24/solid";
 import {
   useMaterialTailwindController,
   setOpenConfigurator,
@@ -119,7 +121,22 @@ export function Configurator() {
           <XMarkIcon strokeWidth={2.5} className="h-5 w-5" />
         </IconButton>
       </div>
-      <div className="py-4 px-6">
+      <div className="px-6">
+        <div className="mb-2 mx-auto">
+          <Tooltip content="Crear paguina">
+            <a href="/Admin/ListaPlantillas">
+              <Button
+                className="flex items-center gap-3 mx-auto"
+                size="sm"
+                color="green"
+                // onClick={() => SetOpenCreateNivel(true)}
+              >
+                <PencilIcon strokeWidth={2} className="h-4 w-4" /> Crear Paguina
+              </Button>
+            </a>
+          </Tooltip>
+        </div>
+
         <div className="mb-2">
           <Typography variant="h6" color="blue-gray">
             Color de Selector

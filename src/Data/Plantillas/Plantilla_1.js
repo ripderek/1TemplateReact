@@ -9,6 +9,8 @@ export const Plantilla_1 = {
  import { Fragment, useState, useEffect } from "react";
  import { Loader,Dialog_Error,Notification  } from "@/widgets";
  import axios from "axios"; // para realizar las peticiones
+ //para ponerle titulo a la pestana
+ import Head from "next/head";
 export default function  SimpleRegistrationForm() {
  const [load, setLoader] = useState(false);
  const [error, setError] = useState(false);
@@ -71,6 +73,9 @@ export default function  SimpleRegistrationForm() {
  */
   return (
   <>
+   <Head>
+        <title>Plantilla 1</title>
+      </Head>
     {load ? <Loader /> : ""}
     {error && (
           <Dialog_Error

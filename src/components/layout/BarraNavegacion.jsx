@@ -70,7 +70,7 @@ export function BarraNavegacion({ routes, brandImg, brandName }) {
             )}
             {/* 
             <img
-              src="/img/Home/UTEQ.png"
+              src="https://sga.uteq.edu.ec/media/fotos/2023/11/28/foto_20231128181450.jpg"
               alt="Empresa logo"
               className="w-auto"
             />
@@ -99,7 +99,9 @@ export function BarraNavegacion({ routes, brandImg, brandName }) {
           color="white"
           size="sm"
           ripple={false}
-          className="absolute left-5 top-2 grid rounded-br-none rounded-tl-none"
+          className={`absolute grid rounded-br-none rounded-tl-none ${
+            change_type_bar ? " left-8 top-2 " : " left-5 top-2 "
+          }`}
           onClick={() => setBarNav(dispatch, !change_type_bar)}
         >
           <Bars3Icon
@@ -123,9 +125,9 @@ export function BarraNavegacion({ routes, brandImg, brandName }) {
           />
         </IconButton>
       </div>
-      <div className="m-2">
+      <div>
         {routes.map(({ layout, title, pages }, key) => (
-          <ul key={key} className="mb-4 flex flex-col gap-1 ">
+          <ul key={key} className=" flex flex-col gap-1">
             {pages.map(({ icon, name, path }) => (
               <li key={name}>
                 <Link href={`/${layout}${path}`} passHref>
@@ -142,10 +144,12 @@ export function BarraNavegacion({ routes, brandImg, brandName }) {
                           ? "white"
                           : "black"
                       }
-                      className="flex items-center gap-4 px-4 capitalize"
+                      className={`flex items-center capitalize ${
+                        change_type_bar ? "gap-16 px-9 h-10 " : "gap-6 px-4 h-9"
+                      }`}
                       fullWidth
                     >
-                      {icon(!change_type_bar ? "w-10" : "w-40 text-5xl")}
+                      {icon(!change_type_bar ? "h-6" : "h-5 ")}
                       {!change_type_bar && (
                         <Typography
                           color="inherit"
